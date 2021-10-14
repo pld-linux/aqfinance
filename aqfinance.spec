@@ -16,7 +16,6 @@ Source0:	https://www.aquamaniac.de/rdm/attachments/download/313/%{name}-%{versio
 Patch0:		%{name}-update.patch
 Patch1:		%{name}-make.patch
 URL:		https://www.aquamaniac.de/sites/aqfinance/
-BuildRequires:	aqbanking-backend-aqhbci-devel >= 5.7.4.0
 BuildRequires:	aqbanking-devel >= 5.7.4.0
 BuildRequires:	aqdatabase-devel
 BuildRequires:	aqfoxext-devel
