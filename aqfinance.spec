@@ -6,18 +6,18 @@ Summary:	AqFinance - financial application with GUI
 Summary(de.UTF-8):	AqFinance - eine graphische Anwendung zur Verwaltung von Finanzen
 Summary(pl.UTF-8):	AqFinance - aplikacja finansowa z graficznym interfejsem
 Name:		aqfinance
-Version:	0.9.108beta
-Release:	1
+Version:	0.9.133beta
+Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 # https://www.aquamaniac.de/sites/download/packages.php?showall=1
-Source0:	https://www.aquamaniac.de/sites/download/download.php?package=12&release=49&file=01&dummy=/%{name}-%{version}.tar.gz
-# Source0-md5:	4ae8f233d71597802da39cd3aea5a7c9
+Source0:	https://www.aquamaniac.de/rdm/attachments/download/313/%{name}-%{version}.tar.gz
+# Source0-md5:	4aafcba1bf28977b7fb2b3d62c2452c3
 Patch0:		%{name}-update.patch
 Patch1:		%{name}-make.patch
 URL:		https://www.aquamaniac.de/sites/aqfinance/
-BuildRequires:	aqbanking-backend-aqhbci-devel >= 5
-BuildRequires:	aqbanking-devel >= 5
+BuildRequires:	aqbanking-backend-aqhbci-devel >= 5.7.4.0
+BuildRequires:	aqbanking-devel >= 5.7.4.0
 BuildRequires:	aqdatabase-devel
 BuildRequires:	aqfoxext-devel
 BuildRequires:	autoconf >= 2.60
@@ -30,8 +30,8 @@ BuildRequires:	gwenhywfar-fox-devel >= 4
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	pkgconfig
-Requires:	aqbanking >= 5
-Requires:	aqbanking-backend-aqhbci >= 5
+Requires:	aqbanking >= 5.7.4.0
+Requires:	aqbanking-backend-aqhbci >= 5.7.4.0
 Requires:	gwenhywfar-fox >= 4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -83,8 +83,8 @@ Statyczna biblioteka AqFinance.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
+#%patch0 -p1
+#%patch1 -p1
 
 install -d aqfinance/report
 ln -s ../src/lib/engine aqfinance
@@ -107,7 +107,12 @@ ln -s ../../src/lib/engine/plugins/report/htmlbase/*.h .
 %{__autoheader}
 %{__automake}
 %configure \
-	%{!?with_static_libs:--disable-static}
+	%{!?with_static_libs:--disable-static} \
+	--enable-gwenhywfar \
+	--enable-aqbanking \
+	--enable-fox \
+	--enable-cairo \
+	--enable-release
 
 %{__make}
 
