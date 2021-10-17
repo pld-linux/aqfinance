@@ -7,14 +7,12 @@ Summary(de.UTF-8):	AqFinance - eine graphische Anwendung zur Verwaltung von Fina
 Summary(pl.UTF-8):	AqFinance - aplikacja finansowa z graficznym interfejsem
 Name:		aqfinance
 Version:	0.9.133beta
-Release:	0.1
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 # https://www.aquamaniac.de/sites/download/packages.php?showall=1
 Source0:	https://www.aquamaniac.de/rdm/attachments/download/313/%{name}-%{version}.tar.gz
 # Source0-md5:	4aafcba1bf28977b7fb2b3d62c2452c3
-Patch0:		%{name}-update.patch
-Patch1:		%{name}-make.patch
 URL:		https://www.aquamaniac.de/sites/aqfinance/
 BuildRequires:	aqbanking-devel >= 5.7.4.0
 BuildRequires:	aqdatabase-devel
@@ -82,8 +80,6 @@ Statyczna biblioteka AqFinance.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p1
 
 install -d aqfinance/report
 ln -s ../src/lib/engine aqfinance
@@ -100,6 +96,7 @@ ln -s ../../src/lib/engine/plugins/report/csv/*.h .
 ln -s ../../src/lib/engine/plugins/report/htmlbase/*.h .
 
 %build
+export LIBS="-lz"
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
