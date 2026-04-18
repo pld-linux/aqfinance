@@ -1,0 +1,11 @@
+--- aqfinance-0.9.133beta/src/lib/update/Makefile.am.orig	2026-04-18 08:56:56.778699686 +0200
++++ aqfinance-0.9.133beta/src/lib/update/Makefile.am	2026-04-18 08:57:03.715328773 +0200
+@@ -34,7 +34,7 @@ libafupdate_la_SOURCES=$(built_sources)
+   af_update.c
+ 
+ 
+-#libafupdate_la_LIBADD=
++libafupdate_la_LIBADD=-lz
+ 
+ 
+ noinst_HEADERS=$(build_headers_priv) \

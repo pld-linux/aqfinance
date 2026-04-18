@@ -6,6 +6,7 @@ Summary:	AqFinance - financial application with GUI
 Summary(de.UTF-8):	AqFinance - eine graphische Anwendung zur Verwaltung von Finanzen
 Summary(pl.UTF-8):	AqFinance - aplikacja finansowa z graficznym interfejsem
 Name:		aqfinance
+# 0.9.144+ use gwenbuild
 Version:	0.9.133beta
 Release:	1
 License:	GPL v2+
@@ -13,6 +14,8 @@ Group:		X11/Applications
 #Source0Download: https://www.aquamaniac.de/rdm/projects/aqfinance/files
 Source0:	https://www.aquamaniac.de/rdm/attachments/download/313/%{name}-%{version}.tar.gz
 # Source0-md5:	4aafcba1bf28977b7fb2b3d62c2452c3
+Patch0:		%{name}-update.patch
+Patch1:		%{name}-link.patch
 URL:		https://www.aquamaniac.de/rdm/projects/aqfinance
 BuildRequires:	aqbanking-devel >= 5.7.4.0
 BuildRequires:	aqdatabase-devel
@@ -80,6 +83,8 @@ Statyczna biblioteka AqFinance.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
 
 install -d aqfinance/report
 ln -s ../src/lib/engine aqfinance
@@ -96,19 +101,18 @@ ln -s ../../src/lib/engine/plugins/report/csv/*.h .
 ln -s ../../src/lib/engine/plugins/report/htmlbase/*.h .
 
 %build
-export LIBS="-lz"
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+# don't use --enable-release, it only enabled stripping
 %configure \
 	%{!?with_static_libs:--disable-static} \
-	--enable-gwenhywfar \
 	--enable-aqbanking \
-	--enable-fox \
 	--enable-cairo \
-	--enable-release
+	--enable-fox \
+	--enable-gwenhywfar
 
 %{__make}
 
@@ -134,8 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS README TODO
 %attr(755,root,root) %{_bindir}/aqfinance
 %attr(755,root,root) %{_bindir}/aqfinance-cli
-%attr(755,root,root) %{_libdir}/libaqfinance.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libaqfinance.so.0
+%{_libdir}/libaqfinance.so.*.*.*
+%ghost %{_libdir}/libaqfinance.so.0
 %dir %{_datadir}/aqfinance
 %dir %{_datadir}/aqfinance/accounts
 %{_datadir}/aqfinance/accounts/c
@@ -145,7 +149,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/aqfinance-config
-%attr(755,root,root) %{_libdir}/libaqfinance.so
+%{_libdir}/libaqfinance.so
 %{_includedir}/aqfinance
 %{_datadir}/aqfinance/typemaker2
 %{_aclocaldir}/aqfinance.m4

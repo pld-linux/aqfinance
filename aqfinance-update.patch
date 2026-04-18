@@ -1,0 +1,19 @@
+--- aqfinance-0.9.133beta/src/fox/lib/modules/vehicles/fm_vehiclesrtab.cpp.orig	2026-04-18 08:35:16.432410933 +0200
++++ aqfinance-0.9.133beta/src/fox/lib/modules/vehicles/fm_vehiclesrtab.cpp	2026-04-18 08:35:46.645580587 +0200
+@@ -389,14 +389,14 @@ void FM_VehiclesRefuelingTab::reload() {
+   b=app->getBook();
+   if (b) {
+     int rv;
+-    AE_VEHICLE_LIST *rel;
++    AE_REFUELING_LIST *rel;
+     char qexpr[64];
+ 
+     snprintf(qexpr, sizeof(qexpr)-1, "$vehicleId==%lld", (unsigned long long int) AE_Vehicle_GetId(m_vehicle));
+     qexpr[sizeof(qexpr)-1]=0;
+ 
+     /* read refuelings */
+-    rel=AE_Vehicle_List_new();
++    rel=AE_Refueling_List_new();
+     rv=AE_Book_QueryRefuelingList(b, AE_Book_TableType_Refueling, 0, qexpr, rel);
+     if (rv<0) {
+       DBG_ERROR(0, "here (%d)", rv);
