@@ -10,10 +10,10 @@ Version:	0.9.133beta
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-# https://www.aquamaniac.de/sites/download/packages.php?showall=1
+#Source0Download: https://www.aquamaniac.de/rdm/projects/aqfinance/files
 Source0:	https://www.aquamaniac.de/rdm/attachments/download/313/%{name}-%{version}.tar.gz
 # Source0-md5:	4aafcba1bf28977b7fb2b3d62c2452c3
-URL:		https://www.aquamaniac.de/sites/aqfinance/
+URL:		https://www.aquamaniac.de/rdm/projects/aqfinance
 BuildRequires:	aqbanking-devel >= 5.7.4.0
 BuildRequires:	aqdatabase-devel
 BuildRequires:	aqfoxext-devel
